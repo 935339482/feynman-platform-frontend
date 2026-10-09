@@ -3,8 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
+import KnowledgePointFormPage from './pages/KnowledgePointFormPage';
 import Layout from './components/Layout';
-import ProtectedRoute from './components/ProtectedRoute'; // 引入
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         {/* 受保护的路由 */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
-          {/* 未来其他的受保护页面也可以放在这里 */}
+          <Route path="/kp/new" element={<KnowledgePointFormPage />} />
+          <Route path="/kp/edit/:id" element={<KnowledgePointFormPage />} />
         </Route>
       </Route>
     </Routes>
