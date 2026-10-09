@@ -1,16 +1,28 @@
 // src/pages/LoginPage.jsx
-import { useState } from 'react'; // 1. 引入 useState
+import { useState } from 'react';
+import apiClient from '../api/axios'; // 引入apiClient
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx'; // 引入useAuth
 
 function LoginPage() {
-  // 2. 使用 useState 创建状态变量
-  // email 是状态值，setEmail 是更新这个值的函数
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth(); // 从Context中获取login函数
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // 阻止表单默认的提交刷新行为
-    console.log('正在尝试登录:', { email, password });
-    // 下节课我们会在这里调用API
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const response = await apiClient.post('/users/login', { email, password });
+      login(response.data.token); // 调用Context的login函数来更新全局token
+      console.log('登录成功，Token:', response.data.token);
+      navigate('/'); // 登录成功后跳转到主页
+    } catch (err) {
+      console.error('登录失败:', err.response.data);
+      setError(err.response.data.msg || '登录失败，请稍后再试');
+    }
   };
 
   return (
@@ -22,7 +34,9 @@ function LoginPage() {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // 3. 监听输入，并用setEmail更新状态
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="邮箱"
+            required
           />
         </div>
         <div>
@@ -31,10 +45,13 @@ function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="密码"
+            required
           />
         </div>
         <button type="submit">登录</button>
       </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }
