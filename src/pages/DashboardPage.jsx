@@ -61,9 +61,33 @@ function DashboardPage() {
                         {knowledgePoints.map((kp) => (
                             <li
                                 key={kp._id}
-                                style={{ border: '1px solid #ccc', margin: '10px 0', padding: '16px', borderRadius: '8px' }}
+                                style={{
+                                    border: kp.reviewList ? '2px solid #e74c3c' : '1px solid #ccc',
+                                    background: kp.reviewList ? '#fff5f5' : '#fff',
+                                    margin: '10px 0',
+                                    padding: '16px',
+                                    borderRadius: '8px',
+                                }}
                             >
-                                <h2 style={{ marginTop: 0 }}>{kp.title}</h2>
+                                <h2 style={{ marginTop: 0 }}>
+                                    {kp.title}
+                                    {kp.reviewList && (
+                                        <span
+                                            title="AI评分低于60分，需要重点复习"
+                                            style={{
+                                                marginLeft: '10px',
+                                                fontSize: '14px',
+                                                color: '#fff',
+                                                background: '#e74c3c',
+                                                borderRadius: '12px',
+                                                padding: '2px 10px',
+                                                verticalAlign: 'middle',
+                                            }}
+                                        >
+                                            🔴 需复习
+                                        </span>
+                                    )}
+                                </h2>
                                 <p>
                                     状态: {kp.status} | 加入复习: {kp.reviewList ? '是' : '否'}
                                 </p>
