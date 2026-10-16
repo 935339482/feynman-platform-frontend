@@ -20,8 +20,9 @@ function LoginPage() {
       console.log('登录成功，Token:', response.data.token);
       navigate('/'); // 登录成功后跳转到主页
     } catch (err) {
-      console.error('登录失败:', err.response.data);
-      setError(err.response.data.msg || '登录失败，请稍后再试');
+      // err.response 存在 = 服务器有响应(4xx/5xx)；不存在 = 根本连不上服务器
+      console.error('登录失败:', err.response?.data || err.message);
+      setError(err.response?.data?.msg || '无法连接服务器，请确认后端已启动');
     }
   };
 

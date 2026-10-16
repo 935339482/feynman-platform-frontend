@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import KnowledgePointFormPage from './pages/KnowledgePointFormPage';
+import FeynmanRecordPage from './pages/FeynmanRecordPage';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/kp/new" element={<KnowledgePointFormPage />} />
           <Route path="/kp/edit/:id" element={<KnowledgePointFormPage />} />
+          <Route path="/feynman/:id" element={<FeynmanRecordPage />} />
         </Route>
       </Route>
     </Routes>

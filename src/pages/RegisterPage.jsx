@@ -26,8 +26,9 @@ function RegisterPage() {
       // 6. 注册成功后跳转到登录页
       navigate('/login');
     } catch (err) {
-      console.error('注册失败:', err.response.data);
-      setError(err.response.data.msg || '注册失败，请稍后再试'); // 7. 显示错误信息
+      // err.response 存在 = 服务器有响应(4xx/5xx)；不存在 = 根本连不上服务器
+      console.error('注册失败:', err.response?.data || err.message);
+      setError(err.response?.data?.msg || '无法连接服务器，请确认后端已启动'); // 7. 显示错误信息
     }
   };
 

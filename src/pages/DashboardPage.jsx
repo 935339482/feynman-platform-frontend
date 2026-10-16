@@ -97,8 +97,11 @@ function DashboardPage() {
                                     </ReactMarkdown>
                                 </div>
                                 <div style={{ marginTop: '10px' }}>
+                                    <Link to={`/feynman/${kp._id}`}>
+                                        <button style={{ background: 'green', color: 'white' }}>开始复述</button>
+                                    </Link>
                                     <Link to={`/kp/edit/${kp._id}`}>
-                                        <button>编辑</button>
+                                        <button style={{ marginLeft: '10px' }}>编辑</button>
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(kp._id)}
